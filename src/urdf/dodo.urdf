@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<robot name="origins">
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size=" 0.6 0.6 0.1033252"/>
+      </geometry>
+    </visual>
+  </link>
+
+  <link name="right_front_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.039" radius="0.0635"/>
+      </geometry>
+      <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_right_front_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="right_front_wheel"/>
+    <origin rpy="0 0 0.785398" xyz="0.3 0.3  0"/>
+  </joint>
+
+  <link name="left_front_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.039" radius="0.0635"/>
+      </geometry>
+      <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_left_front_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_front_wheel"/>
+    <origin rpy="0 0 2.35619" xyz="-0.3 0.3  0"/>
+  </joint>
+
+  <link name="left_back_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.039" radius="0.0635"/>
+      </geometry>
+      <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_left_back_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="left_back_wheel"/>
+    <origin rpy="0 0 0.785398" xyz="-0.3 -0.3  0"/>
+  </joint>
+
+  <link name="rigth_back_wheel">
+    <visual>
+      <geometry>
+        <cylinder length="0.039" radius="0.0635"/>
+      </geometry>
+      <origin rpy="0 1.5708 0" xyz="0 0 0"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_right_back_wheel" type="continuous">
+    <parent link="base_link"/>
+    <child link="rigth_back_wheel"/>
+    <origin rpy="0 0 2.35619" xyz="0.3 -0.3  0"/>
+  </joint>
+
+
+</robot>
+
+
+

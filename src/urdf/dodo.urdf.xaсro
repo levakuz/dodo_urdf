@@ -1,0 +1,66 @@
+<?xml version="1.0"?>
+<robot name="dodo_robot" xmlns:xacro="http://www.ros.org/wiki/xacro">
+  
+  <material name="white">
+      <color rgba="1 1 1 1" />
+  </material>
+
+  <material name="grey">
+      <color rgba="0.5 0.5 0.5 1" />
+  </material>
+
+  <material name="black">
+      <color rgba="0 0 0 1" />
+  </material>
+
+  <xacro:property name="robot_len" value="0.6" />
+  <xacro:property name="robot_width" value="0.6" />
+  <xacro:property name="robot_hight" value="0.1033252" />
+
+  <link name="base_link">
+    <visual>
+      <geometry>
+        <box size=" ${robot_len} ${robot_len} ${robot_hight}"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+  </link>
+
+ 
+  <xacro:property name="wheel_radius" value="0.0635" />
+  <xacro:property name="wheel_lenght" value="0.039" />
+  <xacro:macro name="platform_wheel" params="prefix x_reflect y_reflect">
+      <link name="${prefix}_wheel_link">
+          <visual>
+            <geometry>
+              <cylinder length="${wheel_lenght}" radius="${wheel_radius}"/>
+            </geometry>
+            <origin rpy="0 ${pi/2} 0" xyz="0 0 0"/>
+          </visual>
+      </link>
+
+      <joint name="${prefix}_wheel" type="continuous">
+          <origin xyz="${wheel_length * x_reflect} ${wheel_length * y_reflect} 0" rpy="0 0 ${135*pi/180 * y_reflect}"/>
+          <axis xyz="0 1 0"/>
+          <parent link="base_link"/>
+          <child link="${prefix}_wheel_link"/>
+      </joint>
+  </xacro:macro>
+
+  <xacro:platform_wheel prefix="right_front" x_reflecct="1" y_reflect="1"  />
+  <xacro:platform_wheel prefix="left_front" x_reflecct="-1" y_reflect="1" />
+  <xacro:platform_wheel prefix="right_rear" x_reflecct="1" y_reflect="1" />
+  <xacro:platform_wheel prefix="left_rear" x_reflecct="1" y_reflect="-1" />
+
+  <gazebo>
+      <plugin name="omni_steering" filename="libgazebo_ros_planar_move.so">
+          <commandTopic>cmd_vel</commandTopic>
+          <odometryTopic>odom</odometryTopic>
+          <odometryFrame>odom</odometryFrame>
+          <odometryRate>50.0</odometryRate>
+          <robotBaseFrame>base_link</robotBaseFrame>
+          <publishTF>false</publishTF>
+      </plugin>
+  </gazebo>
+</robot>
+
